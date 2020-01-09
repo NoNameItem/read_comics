@@ -1,0 +1,5 @@
+[run]
+include = read_comics/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
