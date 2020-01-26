@@ -1,0 +1,50 @@
+.main-menu .navbar-header .navbar-brand .brand-logo {
+  background-image: url(../images/logo.png);
+  background-position: 0;
+  height: 24px;
+  width: 24px;
+}
+
+body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu,
+body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded,
+.main-menu .navbar-header {
+  width: 310px;
+}
+
+html body .content,
+body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
+  margin-left: 310px;
+}
+
+.header-navbar.fixed-top {
+  left: 310px;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-text {
+  color: #39da8a;
+}
+
+.breadcrumb-item.active {
+  color: #39da8a;
+}
+
+.main-menu.menu-light .navigation > li.active:not(.sidebar-group-active) > a {
+  background: rgba(57, 218, 138, 0.2);
+  color: rgb(57, 218, 138);
+}
+
+.main-menu.menu-light .navigation > li ul .active {
+  background-color: #39da8a33;
+}
+
+.main-menu.menu-light .navigation > li ul .active > a {
+color: rgb(57, 218, 138);
+}
+
+.header-navbar .navbar-container ul.nav li a.nav-link-login {
+  padding: 1.5rem 0.75rem 1.15rem 0.75rem;
+}
+
+.toast-top-right {
+  top: 65px
+}

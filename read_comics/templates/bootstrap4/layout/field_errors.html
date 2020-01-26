@@ -1,0 +1,7 @@
+{% if form_show_errors and field.errors %}
+    {% for error in field.errors %}
+        <span id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="invalid-feedback">
+          <i class="fad fa-exclamation"></i> {{ error }}
+        </span>
+    {% endfor %}
+{% endif %}

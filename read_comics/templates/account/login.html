@@ -1,48 +1,134 @@
-{% extends "account/base.html" %}
+{% load static crispy_forms_tags%}
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
 
-{% load i18n %}
-{% load account socialaccount %}
-{% load crispy_forms_tags %}
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta name="author" content="NoNameItem">
+  <title>Sign In</title>
+  <script src="https://kit.fontawesome.com/96ea38b6db.js" crossorigin="anonymous"></script>
+  <link rel="icon" href="{% static "images/favicons/favicon.png" %}">
+  <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700"
+        rel="stylesheet">
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+  <!-- BEGIN: Vendor CSS-->
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/vendors/css/vendors.min.css" %}">
+  <!-- END: Vendor CSS-->
 
-{% block inner %}
+  <!-- BEGIN: Theme CSS-->
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/bootstrap.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/bootstrap-extended.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/colors.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/components.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/themes/dark-layout.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/themes/semi-dark-layout.css" %}">
+  <!-- END: Theme CSS-->
 
-<h1>{% trans "Sign In" %}</h1>
+  <!-- BEGIN: Page CSS-->
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/core/menu/menu-types/vertical-menu.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/pages/authentication.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/css/plugins/forms/validation/form-validation.css" %}">
+  <!-- END: Page CSS-->
 
-{% get_providers as socialaccount_providers %}
+  <!-- BEGIN: Custom CSS-->
+  <!-- END: Custom CSS-->
 
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+</head>
+<!-- END: Head-->
 
-<div class="socialaccount_ballot">
+<!-- BEGIN: Body-->
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+<body
+    class="vertical-layout vertical-menu-modern 1-column  navbar-sticky footer-static bg-full-screen-image  blank-page blank-page"
+    data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
+<!-- BEGIN: Content-->
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <!-- login page start -->
+      <section id="auth-login" class="row flexbox-container">
+        <div class="col-xl-8 col-11">
+          <div class="card bg-authentication mb-0">
+            <div class="row m-0">
+              <!-- left section-login -->
+              <div class="col-md-6 col-12 px-0">
+                <div class="card disable-rounded-right mb-0 p-2 h-100 d-flex justify-content-center">
+                  <div class="card-header pb-1">
+                    <div class="card-title">
+                      <h4 class="text-center mb-2">Welcome Back</h4>
+                    </div>
+                  </div>
+                  <div class="card-content">
+                    <div class="card-body">
+                      <div class="d-flex flex-md-row flex-column justify-content-around">
+                        <a href="#" class="btn btn-social btn-google btn-block font-small-3 mr-md-1 mb-md-0 mb-1">
+                          <i class="bx bxl-google font-medium-3"></i><span
+                            class="pl-50 d-block text-center">Google</span></a>
+                        <a href="#" class="btn btn-social btn-block mt-0 btn-twitter font-small-3">
+                          <i class="bx bxl-twitter font-medium-3"></i><span class="pl-50 d-block text-center">Twitter</span></a>
+                      </div>
+                      <div class="divider">
+                        <div class="divider-text text-uppercase text-muted"><small>or login with
+                          your account</small>
+                        </div>
+                      </div>
+                      {% crispy form form.helper %}
+                      <hr>
+                      <div class="text-center"><small class="mr-25">Don't have an account?</small><a
+                          href="{% url "account_signup" %}"><small>Sign up</small></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- right section image -->
+              <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
+                <div class="card-content">
+                  <img class="img-fluid" src="{% static "_frest/images/pages/login.png" %}" alt="branding logo">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- login page ends -->
 
-  <div class="login-or">{% trans 'or' %}</div>
-
+    </div>
+  </div>
 </div>
+<!-- END: Content-->
 
-{% include "socialaccount/snippets/login_extra.html" %}
+<script !src="">
+  const frest_root = "/static/_frest";
+</script>
+<!-- BEGIN: Vendor JS-->
+<script src="{% static "_frest/vendors/js/vendors.min.js" %}"></script>
+<script src="{% static "_frest/fonts/LivIconsEvo/js/LivIconsEvo.tools.js" %}"></script>
+<script src="{% static "_frest/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js" %}"></script>
+<script src="{% static "_frest/fonts/LivIconsEvo/js/LivIconsEvo.min.js" %}"></script>
+<!-- BEGIN Vendor JS-->
 
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
+<!-- BEGIN: Page Vendor JS-->
+<script src="{% static "_frest/vendors/js/extensions/toastr.min.js" %}"></script>
+<!-- END: Page Vendor JS-->
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-</form>
+<!-- BEGIN: Theme JS-->
+<script src="{% static "_frest/js/scripts/configs/vertical-menu-light.js" %}"></script>
+<script src="{% static "_frest/js/core/app-menu.js" %}"></script>
+<script src="{% static "_frest/js/core/app.js" %}"></script>
+<script src="{% static "_frest/js/scripts/components.js" %}"></script>
+<script src="{% static "_frest/js/scripts/footer.js" %}"></script>
+<!-- END: Theme JS-->
 
-{% endblock %}
+<!-- BEGIN: Page JS-->
+<!-- END: Page JS-->
 
+</body>
+<!-- END: Body-->
+
+</html>

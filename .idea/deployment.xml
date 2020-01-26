@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="read-comics">
+    <serverData>
+      <paths name="read-comics">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/docs" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.env" />
+            <excludedPath path="/comicvine_crawler/scrapyd.conf" />
+            <excludedPath path="/comicvine_crawler/scrapy.cfg" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

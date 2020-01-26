@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans %}Goodbye. Hope to see you soon.{% endblocktrans %}

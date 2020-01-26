@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6aecc169-9429-414e-a177-de65f9ef61bd" name="read-comics" url="http://comicsdb.nonameitem.com">
+        <fileTransfer host="comicsdb.nonameitem.com" port="22" rootFolder="/www/read_comics" accessType="SFTP" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

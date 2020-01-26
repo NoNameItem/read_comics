@@ -73,6 +73,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "rest_framework",
     "django_celery_beat",
+    "webpack_loader",
+    'django_magnificent_messages.apps.DjangoMagnificentMessagesConfig',
 ]
 
 LOCAL_APPS = [
@@ -97,7 +99,7 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = "home"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
 
@@ -134,6 +136,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django_magnificent_messages.middleware.MessageMiddleware',
 ]
 
 # STATIC
@@ -143,7 +146,9 @@ STATIC_ROOT = str(ROOT_DIR("staticfiles"))
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR.path("static"))]
+STATICFILES_DIRS = [
+    str(APPS_DIR.path("static")),
+]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -183,13 +188,16 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
+                "django_magnificent_messages.context_processors.django_magnificent_messages",
                 "read_comics.utils.context_processors.settings_context",
             ],
         },
     }
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'crispy_frest', )
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_CLASS_CONVERTERS = {'textinput': "form-control"}
 
 # FIXTURES
 # ------------------------------------------------------------------------------
@@ -219,7 +227,7 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = "admin/"
+ADMIN_URL = "flvby/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [("""Artem Vasin""", "nonameitem@me.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -236,7 +244,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+                      "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -272,6 +280,7 @@ CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
@@ -285,7 +294,22 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_ADAPTER = "read_comics.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "read_comics.users.adapters.SocialAccountAdapter"
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_USER_DISPLAY = str
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "/"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
+ACCOUNT_FORMS = {
+    'login': 'users.forms.LoginForm',
+    'signup': 'users.forms.SignupForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'users.forms.ResetPasswordForm',
+    'reset_password_from_key': 'users.forms.ResetPasswordKeyForm',
+    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
 
 # Your stuff...
-# ------------------------------------------------------------------------------

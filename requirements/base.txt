@@ -6,6 +6,7 @@ whitenoise==5.0.1  # https://github.com/evansd/whitenoise
 redis==3.3.11  # https://github.com/antirez/redis
 celery==4.4.0  # pyup: < 5.0  # https://github.com/celery/celery
 django-celery-beat==1.5.0  # https://github.com/celery/django-celery-beat
+psycopg2-binary==2.8.4  # https://github.com/psycopg/psycopg2
 
 # Django
 # ------------------------------------------------------------------------------
@@ -15,10 +16,11 @@ django-model-utils==4.0.0  # https://github.com/jazzband/django-model-utils
 django-allauth==0.41.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==1.8.1  # https://github.com/django-crispy-forms/django-crispy-forms
 django-redis==4.11.0  # https://github.com/niwinz/django-redis
+django-magnificent-messages>=0.3.0,<0.4.0
 
 # Django REST Framework
 djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework
 coreapi==2.3.3  # https://github.com/core-api/python-client
 
-Scrapy==1.8.0
+# MongoDB
 pymongo==3.10.1

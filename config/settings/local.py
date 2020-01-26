@@ -63,3 +63,4 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+STATICFILES_DIRS += ["read_comics/static"]  # Duplicate for PyCharm Code Insight
