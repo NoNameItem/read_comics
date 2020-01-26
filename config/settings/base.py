@@ -4,9 +4,7 @@ Base settings to build other settings files upon.
 
 import environ
 
-ROOT_DIR = (
-    environ.Path(__file__) - 3
-)  # (read_comics/config/settings/base.py - 3 = read_comics/)
+ROOT_DIR = (environ.Path(__file__) - 3)  # (read_comics/config/settings/base.py - 3 = read_comics/)
 APPS_DIR = ROOT_DIR.path("read_comics")
 
 env = environ.Env()
@@ -71,6 +69,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    'allauth.socialaccount.providers.google',
     "rest_framework",
     "django_celery_beat",
     "webpack_loader",
@@ -195,7 +194,7 @@ TEMPLATES = [
     }
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'crispy_frest', )
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'bootstrap4', 'crispy_frest',)
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 CRISPY_CLASS_CONVERTERS = {'textinput': "form-control"}
 
@@ -310,6 +309,18 @@ ACCOUNT_FORMS = {
     'reset_password': 'users.forms.ResetPasswordForm',
     'reset_password_from_key': 'users.forms.ResetPasswordKeyForm',
     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
 }
 
 # Your stuff...

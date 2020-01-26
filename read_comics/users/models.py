@@ -43,3 +43,8 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name or self.username
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = "%s %s" % (self.first_name, self.last_name)
+        super(User, self).save(*args, **kwargs)
