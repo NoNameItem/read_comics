@@ -338,4 +338,6 @@ read_comics/media/
 
 .pytest_cache/
 
-.idea
+/.idea/deployment.xml
+/.idea/webResources.xml
+/.idea/webServers.xml
