@@ -1,4 +1,5 @@
 import allauth.account.forms
+import allauth.socialaccount.forms
 from crispy_forms.layout import Field, Layout, Div, HTML
 from django.contrib.auth import get_user_model, forms
 from django.core.exceptions import ValidationError
@@ -131,4 +132,24 @@ class SignupForm(allauth.account.forms.SignupForm):
             SIGN UP<i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
             </button>
             """)
+        )
+
+
+class SocialSignupForm(allauth.socialaccount.forms.SignupForm):
+    def __init__(self, *args, **kwargs):
+        super(SocialSignupForm, self).__init__(*args, **kwargs)
+
+        self.helper = DefaultFormHelper()
+        self.helper.attrs = {"novalidate": "novalidate"}
+
+        self.fields["username"].widget.attrs.pop("autofocus")
+
+        self.helper.layout = Layout(
+            Field("username", wrapper_class="mb-50"),
+            Field("email", wrapper_class="mb-50"),
+            HTML("""
+                    <button type="submit" class="btn btn-primary glow position-relative w-100">
+                    SIGN UP<i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
+                    </button>
+                    """)
         )

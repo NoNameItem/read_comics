@@ -3,8 +3,11 @@
 
 {% block title %}{{ user.username }}{% endblock %}
 
-{% block content %}
-  <h1>{{ user.username }}</h1>
+{% block page_header %}
+{{ user.username }}
+{% endblock %}
+
+{% block page_content %}
   <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
     {% csrf_token %}
     {{ form|crispy }}

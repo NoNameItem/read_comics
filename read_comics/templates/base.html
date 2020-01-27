@@ -94,7 +94,7 @@
                 {% endif %}
               </a>
               <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                <li class="dropdown-menu-header">
+                <li class="dropdown-menu-header bg-success">
                   <div class="dropdown-header px-1 py-75 d-flex justify-content-between">
                     <span class="notification-title">{{ dmm.messages.unread_count }} unread messages</span>
                     {% if dmm.messages.unread_count > 0 %}
@@ -139,7 +139,7 @@
             <li class="dropdown dropdown-user nav-item">
               <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                 <div class="user-nav d-sm-flex d-none">
-                  <span class="user-name success">{{ request.user.name|default:request.user.username }}</span>
+                  <span class="user-name success">{{ request.user }}</span>
                 </div>
                 <span>
                 <img class="round" src="{{ request.user.image_thumb_url }}" alt="avatar"
@@ -147,8 +147,8 @@
               </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">
-                  <i class="bx bx-user mr-50"></i> Edit Profile
+                <a class="dropdown-item" href="{% url "users:redirect" %}">
+                  <i class="bx bx-user mr-50"></i> My Profile
                 </a>
                 <a class="dropdown-item" href="#">
                   <i class="bx bx-envelope mr-50"></i> My Inbox
@@ -191,7 +191,7 @@
         <h2 class="brand-text mb-0">ReadComics.Net</h2>
       </a></li>
       <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i
-          class="bx bx-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i
+          class="bx bx-x d-block d-xl-none font-medium-4 success toggle-icon"></i><i
           class="toggle-icon bx bx-disc font-medium-4 d-none d-xl-block success" data-ticon="bx-disc"></i></a></li>
     </ul>
   </div>
@@ -212,9 +212,11 @@
     <div class="content-header row">
       <div class="content-header-left col-12 mb-2 mt-1">
         <div class="row breadcrumbs-top">
-          <div class="col-12">
-            <h5 class="content-header-title float-left pr-1 mb-0">{% block page_header %}Header{% endblock %}</h5>
-            <div class="breadcrumb-wrapper col-12">
+          <div class="col-12 col-md-auto pr-0">
+            <h5 class="content-header-title float-left pr-1 mr-0">{% block page_header %}Header{% endblock %}</h5>
+
+          </div>
+          <div class="breadcrumb-wrapper col-12 col-md-auto">
               <ol class="breadcrumb p-0 mb-0">
                 <li class="breadcrumb-item {% if not breadcrumb %}active{% endif %}">
                   {% if breadcrumb %}
@@ -233,7 +235,6 @@
                   {% endfor %}
               </ol>
             </div>
-          </div>
         </div>
       </div>
     </div>

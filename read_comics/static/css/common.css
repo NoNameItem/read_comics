@@ -5,20 +5,21 @@
   width: 24px;
 }
 
-body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu,
-body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded,
-.main-menu .navbar-header {
-  width: 310px;
-}
+/*body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu,*/
+/*body.vertical-layout.vertical-menu-modern.menu-collapsed .main-menu.expanded,*/
+/*.main-menu .navbar-header {*/
+/*  width: 310px;*/
+/*}*/
 
-html body .content,
-body.vertical-layout.vertical-menu-modern.menu-expanded .footer {
-  margin-left: 310px;
-}
+/*html body .content,*/
+/*body.vertical-layout.vertical-menu-modern.menu-expanded .footer {*/
+/*  margin-left: 310px;*/
+/*}*/
 
-.header-navbar.fixed-top {
-  left: 310px;
-}
+/*.header-navbar.fixed-top {*/
+/*  left: 310px;*/
+/*}*/
+
 
 .main-menu .navbar-header .navbar-brand .brand-text {
   color: #39da8a;
@@ -47,4 +48,12 @@ color: rgb(57, 218, 138);
 
 .toast-top-right {
   top: 65px
+}
+
+.fad {
+  font-size: 1.2rem;
+}
+
+.btn i.fad {
+  top: 0;
 }

@@ -1,18 +1,32 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
-from django.views.generic import DetailView, RedirectView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, RedirectView, UpdateView, ListView
 from django.utils.translation import ugettext_lazy as _
 from django_magnificent_messages import notifications, INFO
+
+from utils.view_mixins import BreadcrumbMixin
 
 User = get_user_model()
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserListView(BreadcrumbMixin, ListView):
+    model = User
 
+
+class UserDetailView(BreadcrumbMixin, DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
+    context_object_name = "user"
+    template_name = "users/user_detail.html"
+
+    def get_breadcrumb(self):
+        user = self.get_object()
+        return [
+            {'url': "#", 'text': "Users"},
+            {'url': reverse_lazy("users:detail", args=(user.username,)), 'text': str(user)}
+        ]
 
 
 user_detail_view = UserDetailView.as_view()
@@ -26,7 +40,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse("users:detail", kwargs={"username": self.request.user.username})
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         return User.objects.get(username=self.request.user.username)
 
     def form_valid(self, form):

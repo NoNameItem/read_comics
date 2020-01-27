@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.vk',
     "rest_framework",
     "django_celery_beat",
     "webpack_loader",
@@ -136,6 +137,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_magnificent_messages.middleware.MessageMiddleware',
+    'utils.middleware.LastActiveMiddleware'
 ]
 
 # STATIC
@@ -311,6 +313,10 @@ ACCOUNT_FORMS = {
     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
 }
 
+SOCIALACCOUNT_FORMS = {
+    'signup': 'users.forms.SocialSignupForm'
+}
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -324,3 +330,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Your stuff...
+
+LAST_ACTIVE_TIMEOUT = int(env("LAST_ACTIVE_TIMEOUT", default=60))

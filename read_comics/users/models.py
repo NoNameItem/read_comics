@@ -19,10 +19,14 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Full Name"), blank=True, max_length=255)
+    name = models.CharField(_("Display name"), blank=True, max_length=255)
     gender = models.CharField(_("Gender"), max_length=1, choices=Gender.choices, default=Gender.UNICORN)
     user_image = ThumbnailImageField(null=True, upload_to=get_user_image_name,
                                      thumb_width=40)
+    bio = models.CharField(_("Bio"), blank=True, max_length=1000)
+    birth_date = models.DateField(_("Birth date"), null=True)
+    show_email = models.BooleanField(_("Show email in profile"), default=False)
+    last_active = models.DateTimeField(_("Last active"), null=True)
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
@@ -42,9 +46,14 @@ class User(AbstractUser):
             return "/static/images/avatars/{0}_thumb.png".format(self.gender)
 
     def __str__(self):
-        return self.name or self.username
+        return self.name or self.username.title()
 
     def save(self, *args, **kwargs):
         if not self.name:
-            self.name = "%s %s" % (self.first_name, self.last_name)
+            if self.first_name and self.last_name:
+                self.name = "%s %s" % (self.first_name, self.last_name)
+            elif self.first_name:
+                self.name = self.first_name
+            elif self.last_name:
+                self.name = self.last_name
         super(User, self).save(*args, **kwargs)

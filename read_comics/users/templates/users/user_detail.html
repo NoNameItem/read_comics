@@ -1,36 +1,105 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+{% block title %}User: {{ user }}{% endblock %}
 
-{% block content %}
-<div class="container">
+{% block page_vendor_css %}
+  <link rel="stylesheet" type="text/css" href="{% static "users/css/profile.css" %}">
+{% endblock %}
 
-  <div class="row">
-    <div class="col-sm-12">
+{% block page_header %}
+  User detail
+{% endblock %}
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+
+{% block page_content %}
+  <!-- page user profile start -->
+  <section class="page-user-profile">
+    <div class="row">
+      <div class="col-12">
+        <!-- user profile heading section start -->
+        <div class="card">
+          <div class="card-content">
+            <div class="user-profile-images">
+              <!-- user timeline image -->
+              <div class="img-fluid rounded-top user-timeline-image bg-success"></div>
+              <!-- user profile image -->
+              <img src="{{ user.image_url }}" class="user-profile-image rounded bg-white"
+                   alt="user profile image" height="140" width="140">
+            </div>
+            <!-- user profile nav tabs start -->
+            <div class="card-body px-0">
+
+              <div class="user-profile-text">
+                {% if user.name %}
+                  <h4 class="mb-0 text-bold-500 profile-text-color">{{ user.name }}</h4>
+                  <small>@{{ user.username }}</small>
+                {% else %}
+                {% endif %}
+              </div>
+              <ul
+                  class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0"
+                  role="tablist">
+
+{#                <li class="nav-item pb-0">#}
+{#                  <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile"#}
+{#                     aria-controls="profile" role="tab" aria-selected="false">#}
+{#                    <i class="fad fa-info mr-50"></i> <span class="d-none d-md-block"> Info</span></a>#}
+{#                </li>#}
+              </ul>
+            </div>
+            <!-- user profile nav tabs ends -->
+          </div>
+        </div>
+        <!-- user profile heading section ends -->
+
+        <!-- user profile content section start -->
+        <div class="row">
+          <!-- user profile nav tabs content start -->
+          <div class="col-12">
+            <div class="tab-content">
+              <div class="tab-pane active" id="profile" aria-labelledby="profile-tab" role="tabpanel">
+                <!-- user profile nav tabs profile start -->
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="card-body">
+                          <h5 class="card-title">Info</h5>
+                          <ul class="list-unstyled">
+                            <li><strong>Gender:</strong> {{ user.get_gender_display }}</li>
+                            {% if user.show_email %}
+                              <li><strong>Email:</strong> {{ user.email }}</li>{% endif %}
+                            <li><strong>Registered:</strong> {{ user.date_joined|date }}</li>
+                            <li><strong>Birth date:</strong> {{ user.birth_date }}</li>
+                          </ul>
+                          <div class="row">
+                            <div class="col-12">
+                              <h6><strong>Bio</strong></h6>
+                              <p>{{ user.bio|default_if_none:"" }}</p>
+                            </div>
+                          </div>
+                          <a class="btn btn-sm d-block float-right btn-light-primary mb-2 cursor-pointer">
+                            <i class="fad fa-edit font-small-3 mr-50"></i><span>Edit</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- user profile nav tabs profile ends -->
+              </div>
+            </div>
+          </div>
+          <!-- user profile nav tabs content ends -->
+
+        </div>
+        <!-- user profile content section start -->
+      </div>
     </div>
-  </div>
+  </section>
+  <!-- page user profile ends -->
 
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
-
-</div>
-{% endblock content %}
+{% endblock page_content %}
 
