@@ -24,7 +24,7 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "UTC"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
@@ -35,6 +35,14 @@ USE_L10N = False
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [ROOT_DIR.path("locale")]
+
+# Date and Time formats
+DATE_FORMAT = "F jS, Y"
+DATE_INPUT_FORMATS = ['%B %d, %Y']
+TIME_FORMAT = "H:i"
+TIME_INPUT_FORMATS = ['%H:%M']
+DATETIME_FORMAT = "F jS, Y H:i"
+DATETIME_INPUT_FORMATS = ['%B %d, %Y %H:%M']
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -61,7 +69,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
 ]
 THIRD_PARTY_APPS = [
@@ -191,6 +199,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django_magnificent_messages.context_processors.django_magnificent_messages",
                 "read_comics.utils.context_processors.settings_context",
+                "read_comics.users.context_processors.email_verified_context"
             ],
         },
     }
@@ -210,7 +219,7 @@ FIXTURE_DIRS = (str(APPS_DIR.path("fixtures")),)
 # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-httponly
 SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
 SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
@@ -290,7 +299,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "read_comics.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html

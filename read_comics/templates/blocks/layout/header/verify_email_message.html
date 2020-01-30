@@ -1,0 +1,29 @@
+{% load static %}
+
+{% if not email_verified %}
+  <li class="scrollable-container media-list">
+    <div class="d-flex justify-content-between">
+      <div class="media d-flex align-items-center py-0">
+        <div class="media-left pr-0">
+          <img class="mr-1" src="{% static "images/logo.png" %}" alt="avatar" height="39"
+               width="39">
+        </div>
+        <div class="media-body">
+          <h6 class="media-heading">
+            <span class="text-bold-500">Confirm your email</span>
+          </h6>
+          <small class="notification-text">Your email is not verified. Please confirm email</small>
+        </div>
+        <div class="media-right pl-0">
+          <div class="row border-left text-center height-75">
+            <div class="col-12 px-50 height-75 cursor-pointer div-link" style="padding-top: 30px;">
+              <a href="{% url "users:send_email_confirmation" %}?next={{ request.get_full_path }}" class="div-default-link"></a>
+              <h6 class="media-heading text-bold-500 mb-0">Confirm</h6>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+{% endif %}

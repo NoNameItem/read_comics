@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static humanize %}
 
 {% block title %}User: {{ user }}{% endblock %}
 
@@ -41,11 +41,11 @@
                   class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0"
                   role="tablist">
 
-{#                <li class="nav-item pb-0">#}
-{#                  <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile"#}
-{#                     aria-controls="profile" role="tab" aria-selected="false">#}
-{#                    <i class="fad fa-info mr-50"></i> <span class="d-none d-md-block"> Info</span></a>#}
-{#                </li>#}
+                {#                <li class="nav-item pb-0">#}
+                {#                  <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile"#}
+                {#                     aria-controls="profile" role="tab" aria-selected="false">#}
+                {#                    <i class="fad fa-info mr-50"></i> <span class="d-none d-md-block"> Info</span></a>#}
+                {#                </li>#}
               </ul>
             </div>
             <!-- user profile nav tabs ends -->
@@ -70,9 +70,11 @@
                           <ul class="list-unstyled">
                             <li><strong>Gender:</strong> {{ user.get_gender_display }}</li>
                             {% if user.show_email %}
-                              <li><strong>Email:</strong> {{ user.email }}</li>{% endif %}
-                            <li><strong>Registered:</strong> {{ user.date_joined|date }}</li>
+                              <li><strong>Email:</strong> {{ user.email }}</li>
+                            {% endif %}
                             <li><strong>Birth date:</strong> {{ user.birth_date }}</li>
+                            <li><strong>Registered:</strong> {{ user.date_joined|date }}</li>
+                            <li><strong>Last active:</strong> {{ user.last_active|naturaltime }}</li>
                           </ul>
                           <div class="row">
                             <div class="col-12">
@@ -80,9 +82,11 @@
                               <p>{{ user.bio|default_if_none:"" }}</p>
                             </div>
                           </div>
-                          <a class="btn btn-sm d-block float-right btn-light-primary mb-2 cursor-pointer">
-                            <i class="fad fa-edit font-small-3 mr-50"></i><span>Edit</span>
-                          </a>
+                          {% if user == request.user %}
+                            <a class="btn btn-sm d-block float-right btn-light-success mb-2 cursor-pointer" href="{% url "users:edit" %}">
+                              <i class="fad fa-edit font-small-3 mr-50"></i><span>Edit</span>
+                            </a>
+                          {% endif %}
                         </div>
                       </div>
                     </div>

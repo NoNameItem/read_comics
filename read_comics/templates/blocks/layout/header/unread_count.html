@@ -1,0 +1,5 @@
+{% if email_verified %}
+  {{ dmm.messages.unread_count }}
+{% else %}
+  {{ dmm.messages.unread_count|add:1}}
+{% endif %}

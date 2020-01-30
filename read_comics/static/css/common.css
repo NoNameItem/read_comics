@@ -57,3 +57,39 @@ color: rgb(57, 218, 138);
 .btn i.fad {
   top: 0;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  background-color: #39DA8A;
+}
+
+.nav.nav-pills .nav-item .nav-link.active {
+  box-shadow: 0 2px 4px 0 #39da8a33;
+}
+
+.div-link {
+  /* only required rule to make this work */
+  position: relative;
+}
+
+.div-link:hover {
+  background-color: #39da8a33;
+}
+
+/*.card-link:hover .card-footer{*/
+/*border: 1px solid #00B5B8!important;*/
+/*}*/
+
+.div-default-link {
+  /* all rules required to make the whole div clickable */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  /* this is a fix for IE7-9 */
+  background-color: #ffffff;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+}

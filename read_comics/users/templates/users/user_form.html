@@ -1,20 +1,183 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}Edit profile{% endblock %}
 
 {% block page_header %}
-{{ user.username }}
+  Edit profile
+{% endblock %}
+
+{% block page_vendor_css %}
+  <link rel="stylesheet" type="text/css" href="{% static "_frest/vendors/css/pickers/pickadate/pickadate.css" %}">
 {% endblock %}
 
 {% block page_content %}
-  <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <div class="control-group">
-      <div class="controls">
-        <button type="submit" class="btn btn-primary">Update</button>
+  <section id="page-account-settings">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <!-- left menu section -->
+          <div class="col-md-3 mb-2 mb-md-0 pills-stacked">
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center active" id="account-pill-info" data-toggle="pill"
+                   href="#account-vertical-info" aria-expanded="false">
+                  <i class="fad fa-info-circle"></i>
+                  <span>Info</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" id="account-pill-password" data-toggle="pill"
+                   href="#account-vertical-password" aria-expanded="false">
+                  <i class="fad fa-lock-alt"></i>
+                  <span>Change Password</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" id="account-pill-social" data-toggle="pill"
+                   href="#account-vertical-connections" aria-expanded="false">
+                  <i class="fad fa-share-alt"></i>
+                  <span>Social accounts</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- right content section -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-body">
+                  <h3>@{{ user.username }}</h3>
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="account-vertical-info" role="tabpanel"
+                         aria-labelledby="account-pill-info" aria-expanded="true">
+                      <div class="media">
+                        <a href="javascript: void(0);">
+                          <img src="{{ user.image_url }}"
+                               class="rounded mr-75" alt="profile image" height="64" width="64" id="user_photo">
+                        </a>
+                        <div class="media-body mt-25">
+                          <div
+                              class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
+                            <button id="select-photo"
+                                    class="btn btn-sm btn-light-success ml-50 mb-50 mb-sm-0">Upload new photo
+                            </button>
+                            <button id="delete-photo" class="btn btn-sm btn-light-danger ml-50">Delete photo</button>
+                          </div>
+                          <p class="text-muted ml-1 mt-50"><small>Allowed JPG, GIF or PNG. Please select square image or
+                            it may display very strange</small></p>
+                        </div>
+                      </div>
+                      <hr>
+                      {% crispy form %}
+                    </div>
+                    <div class="tab-pane fade " id="account-vertical-password" role="tabpanel"
+                         aria-labelledby="account-pill-password" aria-expanded="false">
+                      <form novalidate>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label>Old Password</label>
+                                <input type="password" class="form-control" required
+                                       placeholder="Old Password"
+                                       data-validation-required-message="This old password field is required">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label>New Password</label>
+                                <input type="password" name="password" class="form-control"
+                                       placeholder="New Password" required
+                                       data-validation-required-message="The password field is required"
+                                       minlength="6">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label>Retype new Password</label>
+                                <input type="password" name="con-password"
+                                       class="form-control" required
+                                       data-validation-match-match="password"
+                                       placeholder="New Password"
+                                       data-validation-required-message="The Confirm password field is required"
+                                       minlength="6">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                            <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
+                              changes
+                            </button>
+                            <button type="reset" class="btn btn-light mb-1">Cancel</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="account-vertical-connections" role="tabpanel"
+                         aria-labelledby="account-pill-connections" aria-expanded="false">
+                      <div class="row">
+                        <div class="col-12 my-2">
+                          <a href="javascript: void(0);" class="btn btn-info">Connect to
+                            <strong>Twitter</strong></a>
+                        </div>
+                        <hr>
+                        <div class="col-12 my-2">
+                          <button
+                              class=" btn btn-sm btn-light-secondary float-right">edit
+                          </button>
+                          <h6>You are connected to facebook.</h6>
+                          <p>Johndoe@gmail.com</p>
+                        </div>
+                        <hr>
+                        <div class="col-12 my-2">
+                          <a href="javascript: void(0);" class="btn btn-danger">Connect to
+                            <strong>Google</strong>
+                          </a>
+                        </div>
+                        <hr>
+                        <div class="col-12 my-2">
+                          <button
+                              class=" btn btn-sm btn-light-secondary float-right">edit
+                          </button>
+                          <h6>You are connected to Instagram.</h6>
+                          <p>Johndoe@gmail.com</p>
+                        </div>
+                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                          <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
+                            changes
+                          </button>
+                          <button type="reset" class="btn btn-light mb-1">Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </form>
+  </section>
+  <!-- account setting page ends -->
+{% endblock %}
+
+{% block vendor_js %}
+  <script src="{% static "_frest/vendors/js/extensions/dropzone.min.js" %}"></script>
+  <script src="{% static "_frest/vendors/js/pickers/pickadate/picker.js" %}"></script>
+  <script src="{% static "_frest/vendors/js/pickers/pickadate/picker.date.js" %}"></script>
+{% endblock %}
+
+{% block page_js %}
+  <script>
+    let change_photo_url = "{% url "users:change_photo" %}";
+    let delete_photo_url = "{% url "users:delete_photo" %}";
+  </script>
+  <script src="{% static "users/js/edit_user.js" %}"></script>
 {% endblock %}

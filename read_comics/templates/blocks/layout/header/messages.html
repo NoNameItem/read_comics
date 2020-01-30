@@ -1,0 +1,29 @@
+{% load static %}
+<li class="dropdown dropdown-notification nav-item">
+  <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+    <i class="ficon fad fa-bell success"></i>
+    {% if dmm.messages.unread_count > 0 or not email_verified %}
+      <span class="badge badge-pill badge-primary badge-up">
+        {% include "blocks/layout/header/unread_count.html" %}
+      </span>
+    {% endif %}
+  </a>
+  <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+    <li class="dropdown-menu-header bg-success">
+      <div class="dropdown-header px-1 py-75 d-flex justify-content-between">
+        <span class="notification-title">{% include "blocks/layout/header/unread_count.html" %} unread message(s)</span>
+        {% if dmm.messages.unread_count > 0 %}
+          <span class="text-bold-400 cursor-pointer">Mark all as read</span>
+        {% endif %}
+      </div>
+    </li>
+    {% include "blocks/layout/header/verify_email_message.html" %}
+    {% if dmm.messages.unread_count > 0 %}
+      <li class="dropdown-menu-footer">
+        <a class="dropdown-item p-50 text-primary justify-content-center" href="javascript:void(0)">
+          Read all messages
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</li>

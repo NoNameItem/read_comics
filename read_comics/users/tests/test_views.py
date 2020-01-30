@@ -2,7 +2,7 @@ import pytest
 from django.conf import settings
 from django.test import RequestFactory
 
-from read_comics.users.views import UserRedirectView, UserUpdateView
+from read_comics.users.views import UserRedirectView, UserEditView
 
 pytestmark = pytest.mark.django_db
 
@@ -19,7 +19,7 @@ class TestUserUpdateView:
     def test_get_success_url(
         self, user: settings.AUTH_USER_MODEL, request_factory: RequestFactory
     ):
-        view = UserUpdateView()
+        view = UserEditView()
         request = request_factory.get("/fake-url/")
         request.user = user
 
@@ -30,7 +30,7 @@ class TestUserUpdateView:
     def test_get_object(
         self, user: settings.AUTH_USER_MODEL, request_factory: RequestFactory
     ):
-        view = UserUpdateView()
+        view = UserEditView()
         request = request_factory.get("/fake-url/")
         request.user = user
 

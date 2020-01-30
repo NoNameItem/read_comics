@@ -19,12 +19,12 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Display name"), blank=True, max_length=255)
+    name = models.CharField(_("Full name"), blank=True, max_length=255)
     gender = models.CharField(_("Gender"), max_length=1, choices=Gender.choices, default=Gender.UNICORN)
     user_image = ThumbnailImageField(null=True, upload_to=get_user_image_name,
                                      thumb_width=40)
     bio = models.CharField(_("Bio"), blank=True, max_length=1000)
-    birth_date = models.DateField(_("Birth date"), null=True)
+    birth_date = models.DateField(_("Birth date"), null=True, blank=True)
     show_email = models.BooleanField(_("Show email in profile"), default=False)
     last_active = models.DateTimeField(_("Last active"), null=True)
 
