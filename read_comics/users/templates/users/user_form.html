@@ -20,14 +20,14 @@
           <div class="col-md-3 mb-2 mb-md-0 pills-stacked">
             <ul class="nav nav-pills flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center active" id="account-pill-info" data-toggle="pill"
+                <a class="nav-link d-flex align-items-center {% if not show_tab or show_tab == 'info' %}active{% endif %}" id="account-pill-info" data-toggle="pill"
                    href="#account-vertical-info" aria-expanded="false">
                   <i class="fad fa-info-circle"></i>
                   <span>Info</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center" id="account-pill-password" data-toggle="pill"
+                <a class="nav-link d-flex align-items-center {% if show_tab == 'password' %}active{% endif %}" id="account-pill-password" data-toggle="pill"
                    href="#account-vertical-password" aria-expanded="false">
                   <i class="fad fa-lock-alt"></i>
                   <span>Change Password</span>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                   <h3>@{{ user.username }}</h3>
                   <div class="tab-content">
-                    <div class="tab-pane active" id="account-vertical-info" role="tabpanel"
+                    <div class="tab-pane {% if not show_tab or show_tab == 'info' %}active{% else %}fade{% endif %}" id="account-vertical-info" role="tabpanel"
                          aria-labelledby="account-pill-info" aria-expanded="true">
                       <div class="media">
                         <a href="javascript: void(0);">
@@ -68,55 +68,12 @@
                             it may display very strange</small></p>
                         </div>
                       </div>
-                      <hr>
-                      {% crispy form %}
+{#                      <hr>#}
+                      {% crispy info_form %}
                     </div>
-                    <div class="tab-pane fade " id="account-vertical-password" role="tabpanel"
+                    <div class="tab-pane {% if show_tab == 'password' %}active{% else %}fade{% endif %}" id="account-vertical-password" role="tabpanel"
                          aria-labelledby="account-pill-password" aria-expanded="false">
-                      <form novalidate>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label>Old Password</label>
-                                <input type="password" class="form-control" required
-                                       placeholder="Old Password"
-                                       data-validation-required-message="This old password field is required">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label>New Password</label>
-                                <input type="password" name="password" class="form-control"
-                                       placeholder="New Password" required
-                                       data-validation-required-message="The password field is required"
-                                       minlength="6">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label>Retype new Password</label>
-                                <input type="password" name="con-password"
-                                       class="form-control" required
-                                       data-validation-match-match="password"
-                                       placeholder="New Password"
-                                       data-validation-required-message="The Confirm password field is required"
-                                       minlength="6">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                            <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                              changes
-                            </button>
-                            <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                          </div>
-                        </div>
-                      </form>
+                      {% crispy password_form %}
                     </div>
 
                     <div class="tab-pane fade" id="account-vertical-connections" role="tabpanel"
@@ -178,6 +135,7 @@
   <script>
     let change_photo_url = "{% url "users:change_photo" %}";
     let delete_photo_url = "{% url "users:delete_photo" %}";
+    let activeTab = "{{ show_tab }}"
   </script>
   <script src="{% static "users/js/edit_user.js" %}"></script>
 {% endblock %}

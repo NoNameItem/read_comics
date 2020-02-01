@@ -37,4 +37,7 @@ $(document).ready(function () {
     selectYears  : 100,
     selectMonths : true
   });
+  // if (activeTab !== '') {
+  //   $('#account-pill-' + activeTab).tab('show');
+  // }
 });

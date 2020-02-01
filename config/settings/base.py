@@ -86,8 +86,11 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "read_comics.utils",
     "read_comics.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+
+    "django_cleanup.apps.CleanupConfig"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -310,6 +313,7 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
 
 ACCOUNT_FORMS = {
     'login': 'users.forms.LoginForm',

@@ -3,7 +3,7 @@ import allauth.socialaccount.forms
 from crispy_forms.layout import Field, Layout, Div, HTML, Row, Column, Submit
 from django.contrib.auth import get_user_model, forms
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm, Textarea, DateField
+from django.forms import ModelForm, Textarea
 from django.utils.translation import ugettext_lazy as _
 
 from utils.form_helpers import DefaultFormHelper
@@ -35,8 +35,15 @@ class UserCreationForm(forms.UserCreationForm):
         raise ValidationError(self.error_messages["duplicate_username"])
 
 
-class UserInfoForm(ModelForm):
-    birth_date = DateField(localize=False)
+class ModelFormRequiredMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.Meta.required:
+            self.fields[field].required = True
+
+
+class UserInfoForm(ModelFormRequiredMixin, ModelForm):
 
     class Meta:
         model = User
@@ -44,9 +51,10 @@ class UserInfoForm(ModelForm):
         widgets = {
             'bio': Textarea(),
         }
-        localized_fields = ('birth_date',)
+        required = ['email']
 
     helper = DefaultFormHelper()
+    helper.attrs = {"novalidate": "novalidate"}
 
     helper.layout = Layout(
         Row(
@@ -105,10 +113,6 @@ class ResetPasswordForm(allauth.account.forms.ResetPasswordForm):
     def __init__(self, *args, **kwargs):
         super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update({
-            "data-validation-required-message": "This field is required"
-        })
-
         self.helper = DefaultFormHelper()
         self.helper.attrs = {"novalidate": "novalidate"}
         self.helper.form_class = "mb-2"
@@ -120,6 +124,24 @@ class ResetPasswordForm(allauth.account.forms.ResetPasswordForm):
             RESET PASSWORD<i id="icon-arrow" class="bx bx-right-arrow-alt"></i>
             </button>
             """)
+        )
+
+
+class ChangePasswordForm(allauth.account.forms.ChangePasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+
+        self.helper = DefaultFormHelper()
+        self.helper.attrs = {"novalidate": "novalidate"}
+
+        self.helper.layout = Layout(
+            Field('oldpassword'),
+            Field('password1'),
+            Field('password2'),
+            Div(
+                Submit(name="password", value="Save", css_class="btn btn-success"),
+                css_class="d-flex flex-sm-row flex-column justify-content-end"
+            )
         )
 
 
