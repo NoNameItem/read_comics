@@ -1,0 +1,21 @@
+{% load socialaccount %}
+
+{% get_providers as socialaccount_providers %}
+
+<div class="row">
+  {% for socialaccount_provider in socialaccount_providers %}
+    <div class="col-12 col-xs-6 col-4k-3 mb-1">
+      <a href="{% provider_login_url socialaccount_provider.id process=soc_process %}"
+         class=" btn btn-social btn-outline-{{ socialaccount_provider.id }} btn-block font-small-3 mr-50 my-0">
+        <i class="fab fa-{{ socialaccount_provider.id }} font-medium-3"></i>
+        <span class="pl-50 d-block text-center">
+        {% if soc_process == "connect" %}
+          Connect {{ socialaccount_provider.name }}
+        {% else %}
+          Login with {{ socialaccount_provider.name }}
+        {% endif %}
+      </span>
+      </a>
+    </div>
+  {% endfor %}
+</div>

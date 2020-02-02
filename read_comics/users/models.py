@@ -21,8 +21,8 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("Full name"), blank=True, max_length=255)
     gender = models.CharField(_("Gender"), max_length=1, choices=Gender.choices, default=Gender.UNICORN)
-    user_image = ThumbnailImageField(null=True, upload_to=get_user_image_name,
-                                     thumb_width=40)
+    _user_image = ThumbnailImageField(null=True, upload_to=get_user_image_name,
+                                      thumb_width=40)
     bio = models.CharField(_("Bio"), blank=True, max_length=1000)
     birth_date = models.DateField(_("Birth date"), null=True, blank=True)
     show_email = models.BooleanField(_("Show email in profile"), default=False)
@@ -33,15 +33,15 @@ class User(AbstractUser):
 
     @property
     def image_url(self):
-        if self.user_image:
-            return self.user_image.url
+        if self._user_image:
+            return self._user_image.url
         else:
             return "/static/images/avatars/{0}.png".format(self.gender)
 
     @property
     def image_thumb_url(self):
-        if self.user_image:
-            return self.user_image.thumb_url
+        if self._user_image:
+            return self._user_image.thumb_url
         else:
             return "/static/images/avatars/{0}_thumb.png".format(self.gender)
 

@@ -1,0 +1,10 @@
+<div class="row px-1">
+  {% for social_account in user.socialaccount_set.all|dictsort:"provider" %}
+    {% ifchanged %}<h3 class="card-title provider-name ">{{ social_account.get_provider_display }}</h3>{% endifchanged %}
+    {% with template_name="users/social/"|add:social_account.provider|add:".html" %}
+      {% include template_name with social_account=social_account %}
+    {% endwith %}
+  {% empty %}
+    <p>You currently has no linked social accounts</p>
+  {% endfor %}
+</div>

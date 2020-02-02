@@ -93,3 +93,13 @@ color: rgb(57, 218, 138);
   filter: alpha(opacity=0);
   opacity: 0;
 }
+
+.btn-outline-reddit {
+    border: 1px solid #ff4500 !important;
+    color: #ff4500;
+}
+
+.btn-outline-discord {
+    border: 1px solid #7289da !important;
+    color: #7289da;
+}

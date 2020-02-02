@@ -6,6 +6,7 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django_magnificent_messages import notifications
 from django.contrib.messages.constants import DEFAULT_LEVELS as DJANGO_DEFAULT_LEVELS
 from django_magnificent_messages.constants import DEFAULT_LEVELS as DMM_DEFAULT_LEVELS
@@ -44,3 +45,8 @@ class AccountAdapter(DefaultAccountAdapter):
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
     def is_open_for_signup(self, request: HttpRequest, sociallogin: Any):
         return getattr(settings, "ACCOUNT_ALLOW_REGISTRATION", True)
+
+    def get_connect_redirect_url(self, request, socialaccount):
+        assert request.user.is_authenticated
+        url = reverse('users:edit') + '?show_tab=social'
+        return url

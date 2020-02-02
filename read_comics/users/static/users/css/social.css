@@ -1,0 +1,8 @@
+.provider-name {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem!important;
+}
+
+.provider-name:first-child {
+  margin-top: 0;
+}

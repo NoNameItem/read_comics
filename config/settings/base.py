@@ -79,6 +79,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.reddit',
+    'allauth.socialaccount.providers.discord',
     "rest_framework",
     "django_celery_beat",
     "webpack_loader",
@@ -339,6 +341,11 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+    'reddit': {
+        'AUTH_PARAMS': {'duration': 'permanent'},
+        'SCOPE': ['identity'],
+        'USER_AGENT': 'django:_7CFaNN633uKEA:1.0 (by /u/NoNameItem)',
     }
 }
 

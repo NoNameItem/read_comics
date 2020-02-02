@@ -67,6 +67,7 @@ class UserInfoForm(ModelFormRequiredMixin, ModelForm):
         ),
         Field('show_email'),
         Field('bio'),
+        HTML("<hr>"),
         Div(
             Submit(name="info", value="Save", css_class="btn btn-success"),
             css_class="d-flex flex-sm-row flex-column justify-content-end"
@@ -138,6 +139,7 @@ class ChangePasswordForm(allauth.account.forms.ChangePasswordForm):
             Field('oldpassword'),
             Field('password1'),
             Field('password2'),
+            HTML("<hr>"),
             Div(
                 Submit(name="password", value="Save", css_class="btn btn-success"),
                 css_class="d-flex flex-sm-row flex-column justify-content-end"

@@ -80,6 +80,9 @@ class UserEditView(BreadcrumbMixin, LoginRequiredMixin, UpdateView):
             context['info_form'] = self.info_form_class(instance=self.get_object())
         if not context.get('password_form'):
             context['password_form'] = self.password_form_class()
+        show_tab = self.request.GET.get("show_tab")
+        if show_tab:
+            context['show_tab'] = show_tab
         return context
 
     def get_success_url(self):

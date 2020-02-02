@@ -11,6 +11,10 @@
   User detail
 {% endblock %}
 
+{% block page_css %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "users/css/social.css" %}">
+{% endblock %}
 
 {% block page_content %}
   <!-- page user profile start -->
@@ -40,12 +44,18 @@
               <ul
                   class="nav user-profile-nav justify-content-center justify-content-md-start nav-tabs border-bottom-0 mb-0"
                   role="tablist">
-
-                {#                <li class="nav-item pb-0">#}
-                {#                  <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab" href="#profile"#}
-                {#                     aria-controls="profile" role="tab" aria-selected="false">#}
-                {#                    <i class="fad fa-info mr-50"></i> <span class="d-none d-md-block"> Info</span></a>#}
-                {#                </li>#}
+                <li class="nav-item pb-0">
+                  <a class="nav-link d-flex px-1 active" id="profile-tab" data-toggle="tab"
+                     href="#profile"
+                     aria-controls="profile" role="tab" aria-selected="false">
+                    <i class="fad fa-info mr-50"></i> <span class="d-none d-md-block pl-50"> Info</span></a>
+                </li>
+                <li class="nav-item pb-0">
+                  <a class="nav-link d-flex px-1" id="social-tab" data-toggle="tab"
+                     href="#social"
+                     aria-controls="social" role="tab" aria-selected="false">
+                    <i class="fad fa-share-alt mr-50"></i> <span class="d-none d-md-block pl-50"> Social accounts</span></a>
+                </li>
               </ul>
             </div>
             <!-- user profile nav tabs ends -->
@@ -59,8 +69,6 @@
           <div class="col-12">
             <div class="tab-content">
               <div class="tab-pane active" id="profile" aria-labelledby="profile-tab" role="tabpanel">
-                <!-- user profile nav tabs profile start -->
-
                 <div class="row">
                   <div class="col-12">
                     <div class="card">
@@ -83,7 +91,8 @@
                             </div>
                           </div>
                           {% if user == request.user %}
-                            <a class="btn btn-sm d-block float-right btn-light-success mb-2 cursor-pointer" href="{% url "users:edit" %}">
+                            <a class="btn btn-sm d-block float-right btn-light-success mb-2 cursor-pointer"
+                               href="{% url "users:edit" %}">
                               <i class="fad fa-edit font-small-3 mr-50"></i><span>Edit</span>
                             </a>
                           {% endif %}
@@ -92,16 +101,29 @@
                     </div>
                   </div>
                 </div>
-                <!-- user profile nav tabs profile ends -->
+              </div>
+              <div class="tab-pane fade" id="social" aria-labelledby="social-tab" role="tabpanel">
+                 <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-content">
+                        <div class="card-body">
+                          <h5 class="card-title">Social accounts</h5>
+                          {% include "users/social/list.html" %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+              </div>
               </div>
             </div>
-          </div>
-          <!-- user profile nav tabs content ends -->
+            <!-- user profile nav tabs content ends -->
 
+          </div>
+          <!-- user profile content section start -->
         </div>
-        <!-- user profile content section start -->
       </div>
-    </div>
   </section>
   <!-- page user profile ends -->
 
