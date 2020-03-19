@@ -150,7 +150,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_magnificent_messages.middleware.MessageMiddleware',
-    'utils.middleware.LastActiveMiddleware',
+    'users.middleware.LastActiveMiddleware',
     'watson.middleware.SearchContextMiddleware',
 ]
 
