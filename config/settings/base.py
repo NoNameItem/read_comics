@@ -84,18 +84,18 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_celery_beat",
     "webpack_loader",
-    'django_magnificent_messages.apps.DjangoMagnificentMessagesConfig',
+    "django_magnificent_messages.apps.DjangoMagnificentMessagesConfig",
+    "watson",
 ]
 
 LOCAL_APPS = [
     "read_comics.utils",
     "read_comics.users.apps.UsersConfig",
     # Your stuff: custom apps go here
-
-    "django_cleanup.apps.CleanupConfig"
+    "read_comics.publishers.apps.PublishersConfig"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + ["django_cleanup.apps.CleanupConfig"]
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -150,7 +150,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django_magnificent_messages.middleware.MessageMiddleware',
-    'utils.middleware.LastActiveMiddleware'
+    'utils.middleware.LastActiveMiddleware',
+    'watson.middleware.SearchContextMiddleware',
 ]
 
 # STATIC
