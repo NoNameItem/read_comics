@@ -3,7 +3,11 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from utils import logging
 from utils.fields import ThumbnailImageField
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_user_image_name(instance, filename):
@@ -48,6 +52,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.name or self.username.title()
 
+    @logging.logged(logger)
     def save(self, *args, **kwargs):
         if not self.name:
             if self.first_name and self.last_name:

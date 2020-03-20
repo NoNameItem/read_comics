@@ -19,6 +19,7 @@ django-redis==4.11.0  # https://github.com/niwinz/django-redis
 django-magnificent-messages>=0.3.1
 django-cleanup==4.0.0
 django-watson==1.5.4
+django-crum==0.7.5
 
 # Django REST Framework
 djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework

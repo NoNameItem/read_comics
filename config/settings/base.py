@@ -255,6 +255,10 @@ MANAGERS = ADMINS
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+
+DJANGO_LOG_LEVEL = env("DJANGO_LOG_LEVEL")
+APP_LOG_LEVEL = env("APP_LOG_LEVEL")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -262,16 +266,46 @@ LOGGING = {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
                       "%(process)d %(thread)d %(message)s"
-        }
+        },
+        'fmt': {
+            'format': '[{levelname}] {asctime} [{username}] : {message} [{name}] ',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'user': {
+            '()': 'read_comics.utils.logging.LogUserFilter'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
-        }
+        },
+        'file_django': {
+            'level': DJANGO_LOG_LEVEL,
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': ROOT_DIR.path('logs/django.log'),
+            'formatter': 'fmt',
+            'filters': ["user"],
+            'maxBytes': 2 ** 20,
+            'backupCount': 10
+        },
+        'file': {
+            'level': APP_LOG_LEVEL,
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': ROOT_DIR.path('logs/read_comics.log'),
+            'formatter': 'fmt',
+            'filters': ["user"],
+            'maxBytes': 2 ** 20,
+            'backupCount': 10
+        },
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    "root": {"level": "INFO", "handlers": ["console", "file_django"]},
 }
 
 # Celery

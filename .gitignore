@@ -325,3 +325,4 @@ pip-selfcheck.json
 read_comics/media/
 
 .pytest_cache/
+/logs/
