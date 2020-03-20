@@ -92,7 +92,8 @@ LOCAL_APPS = [
     "read_comics.utils",
     "read_comics.users.apps.UsersConfig",
     # Your stuff: custom apps go here
-    "read_comics.publishers.apps.PublishersConfig"
+    "read_comics.publishers.apps.PublishersConfig",
+    "read_comics.people.apps.PeopleConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + ["django_cleanup.apps.CleanupConfig"]
